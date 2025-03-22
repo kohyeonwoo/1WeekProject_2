@@ -1,19 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AI;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
 
+    protected Rigidbody rigid;
+    protected Animator anim;
+    protected Material mat;
+    protected NavMeshAgent nav;
+
     protected int maxHealth;
     protected int currentHealth;
     protected int attackPoint;
 
-    public void Init(int Health, int AttackPoint)
+    public Transform target;
+
+    public void Init()
     {
-        maxHealth = Health;
-        currentHealth = maxHealth;
-        attackPoint = AttackPoint;
+        rigid = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+        nav = GetComponent<NavMeshAgent>();
+        mat = GetComponent<MeshRenderer>().material;    
+    }
+
+    public void ChaseTarget()
+    {
+        nav.SetDestination(target.position);
+    }
+
+    protected void FreezeVelocity()
+    {
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
     }
 
     public void Damage(int Damage)

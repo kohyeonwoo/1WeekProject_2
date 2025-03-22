@@ -10,6 +10,13 @@ public class Player : MonoBehaviour, IDamageable
     public int maxHealth;
     public int currentHealth;
 
+    public float speed;
+
+    private float hAxis;
+    private float vAxis;
+
+    private Vector3 moveVector;
+
     private Animator anim;
     private Rigidbody rigid;
 
@@ -25,6 +32,14 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
+
+        hAxis = Input.GetAxisRaw("Horizontal");
+        vAxis = Input.GetAxisRaw("Vertical");
+
+        moveVector = new Vector3(hAxis, 0, vAxis).normalized;
+
+        transform.position += moveVector * speed * Time.deltaTime;
+
         if (Input.GetMouseButtonDown(0))
         {
             Attack1();
