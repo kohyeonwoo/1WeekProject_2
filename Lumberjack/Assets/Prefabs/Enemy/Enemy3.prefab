@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2230ddab57ab064f8c1744115ddda25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoint: 0
+  attackPoint: 5
 --- !u!1 &4705957234486179046
 GameObject:
   m_ObjectHideFlags: 0

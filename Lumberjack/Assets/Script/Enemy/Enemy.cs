@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour, IDamageable
         //enemyAttackCollision = GetComponent<BoxCollider>();
         // mat = GetComponentInChildren<MeshRenderer>().material;    
 
+        currentHealth = maxHealth;
+
         Invoke("ChaseStart", 2.0f);
     }
 

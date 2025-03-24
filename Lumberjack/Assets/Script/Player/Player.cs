@@ -33,7 +33,7 @@ public class Player : MonoBehaviour, IDamageable
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
 
-        maxHealth = 100;
+        maxHealth = 50;
         currentHealth = maxHealth;
 
         bMove = true;
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour, IDamageable
     public void Damage(int Damage)
     {
         currentHealth -= Damage;
-        healthBar.fillAmount = currentHealth / 100;
+        healthBar.fillAmount = currentHealth / 50;
 
         if(currentHealth <= 0)
         {
