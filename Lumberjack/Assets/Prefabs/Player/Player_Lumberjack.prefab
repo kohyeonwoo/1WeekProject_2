@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3119341218983791147}
   - component: {fileID: 2621950164106044580}
   - component: {fileID: 4416101266416943103}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: AttackCollision
   m_TagString: PlayerAttackCollision
   m_Icon: {fileID: 0}
@@ -656,8 +656,8 @@ MonoBehaviour:
   attackCollision: {fileID: 3831275406905729481}
   healthBar: {fileID: 0}
   maxHealth: 50
-  currentHealth: 0
-  speed: 3
+  currentHealth: 50
+  speed: 5
   trailRenderer: {fileID: 2441014601549662387}
   bMove: 0
 --- !u!54 &2967785647853180793

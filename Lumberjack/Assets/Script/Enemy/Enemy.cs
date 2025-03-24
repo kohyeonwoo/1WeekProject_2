@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private Animator anim;
     private Material mat;
     private NavMeshAgent nav;
-   
+    
     public int maxHealth;
     public int currentHealth;
     public int attackPoint;
