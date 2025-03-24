@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
 {
 
     public GameObject attackCollision;
+    public Image healthBar; 
 
     public int maxHealth;
     public int currentHealth;
 
     public float speed;
 
+    public TrailRenderer trailRenderer;
+
     private float hAxis;
     private float vAxis;
 
     private bool walkDown;
+    public bool bMove;
 
     private Vector3 moveVector;
 
@@ -30,19 +35,29 @@ public class Player : MonoBehaviour, IDamageable
 
         maxHealth = 100;
         currentHealth = maxHealth;
+
+        bMove = true;
     }
 
     private void Update()
     {
-
-        InputKey();
-        Move();
-        Turn();
-      
+        
+        if(bMove)
+        {
+            InputKey();
+            Move();
+            Turn();
+        }
+         
         if (Input.GetMouseButtonDown(0))
         {
             Attack1();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        FreezeRotation();
     }
 
     private void InputKey()
@@ -76,25 +91,33 @@ public class Player : MonoBehaviour, IDamageable
         transform.LookAt(this.transform.position + moveVector);
     }
    
+    private void FreezeRotation()
+    {
+        rigid.angularVelocity = Vector3.zero;
+    }
 
     private void Attack1()
     {
         anim.SetTrigger("Attack1");
+        
     }
 
     public void ActiveAttackCollision()
     {
         attackCollision.SetActive(true);
+        trailRenderer.enabled = true;
     }
 
     public void DeActiveAttackCollision()
     {
         attackCollision.SetActive(false);
+        trailRenderer.enabled = false;
     }
 
     public void Damage(int Damage)
     {
         currentHealth -= Damage;
+        healthBar.fillAmount = currentHealth / 100;
 
         if(currentHealth <= 0)
         {

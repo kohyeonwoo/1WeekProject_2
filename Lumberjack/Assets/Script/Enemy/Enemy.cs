@@ -23,14 +23,15 @@ public class Enemy : MonoBehaviour, IDamageable
     public bool bAttack;
 
     public Transform target;
-    public BoxCollider enemyAttackCollision;
+    public GameObject enemyAttackCollision;
+    public GameObject bullet;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
-        enemyAttackCollision = GetComponent<BoxCollider>();
+        //enemyAttackCollision = GetComponent<BoxCollider>();
         // mat = GetComponentInChildren<MeshRenderer>().material;    
 
         Invoke("ChaseStart", 2.0f);
@@ -64,7 +65,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected void FreezeVelocity()
     {
-        if(bChase)
+        if (bChase)
         {
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
@@ -84,9 +85,11 @@ public class Enemy : MonoBehaviour, IDamageable
                 break;
             case EnemyType.Dash:
                 targetRadius = 1.0f;
-                targetRange = 6.0f;
+                targetRange = 12.0f;
                 break;
             case EnemyType.LongDistance:
+                targetRadius = 0.5f;
+                targetRange = 25.0f;
                 break;
         }
 
@@ -111,17 +114,35 @@ public class Enemy : MonoBehaviour, IDamageable
         switch(enemyType)
         {
             case EnemyType.Basic:
+
                 yield return new WaitForSeconds(0.2f);
-                enemyAttackCollision.enabled = true;
+                enemyAttackCollision.SetActive(true);
 
                 yield return new WaitForSeconds(1.0f);
-                enemyAttackCollision.enabled = false;
+                enemyAttackCollision.SetActive(false);
 
                 yield return new WaitForSeconds(1.0f);
+
                 break;
+
             case EnemyType.Dash:
+
+                yield return new WaitForSeconds(0.1f);
+                rigid.AddForce(this.transform.forward * 20, ForceMode.Impulse);
+                enemyAttackCollision.SetActive(true);
+
+                yield return new WaitForSeconds(0.5f);
+                rigid.velocity = Vector3.zero;
+                enemyAttackCollision.SetActive(false);
+
+                yield return new WaitForSeconds(2.0f);
                 break;
+
             case EnemyType.LongDistance:
+
+                yield return new WaitForSeconds(0.5f);
+                //총알 생성 부분 
+
                 break;
         }
 
