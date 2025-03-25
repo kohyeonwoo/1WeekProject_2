@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour, IDamageable
         anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
         //enemyAttackCollision = GetComponent<BoxCollider>();
-        // mat = GetComponentInChildren<MeshRenderer>().material;    
+        mat = GetComponentInChildren<SkinnedMeshRenderer>().material;    
 
         currentHealth = maxHealth;
 
@@ -155,9 +155,20 @@ public class Enemy : MonoBehaviour, IDamageable
         anim.SetBool("bAttack", false);
     }
 
+    IEnumerator ChangeColor()
+    {
+        mat.color = Color.red;
+
+        yield return new WaitForSeconds(0.3f);
+
+        mat.color = Color.white;
+    }
+
     public void Damage(int Damage)
     {
         currentHealth -= Damage;
+        AudioManager.Instance.PlaySFX("EnemyHitSound");
+        StartCoroutine(ChangeColor());
 
         if(currentHealth <= 0)
         {

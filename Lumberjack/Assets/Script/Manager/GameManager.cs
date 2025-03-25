@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject pausePanel;
 
+    public int killCount;
+
+    public int rand;
+
+    public List<GameObject> portals = new List<GameObject>();
+
     private void Awake()
     {
         if(Instance == null)
@@ -17,6 +23,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        killCount = 0;
+
+        int rand = Random.Range(0, portals.Count);
+    }
+
+    private void Update()
+    {
+        if(killCount >= 8)
+        {
+            portals[rand].SetActive(true);
+        }
+    }
 
     public void ActivePause()
     {

@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IDamageable
 {
 
     public GameObject attackCollision;
-    public Image healthBar; 
+    public Slider healthBar; 
 
     public int maxHealth;
     public int currentHealth;
@@ -27,14 +27,20 @@ public class Player : MonoBehaviour, IDamageable
     private Animator anim;
     private Rigidbody rigid;
 
+   // public Material mat;
+
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
+       // mat = GetComponentInChildren<SkinnedMeshRenderer>().material;
 
         maxHealth = 50;
         currentHealth = maxHealth;
+
+        healthBar.maxValue = maxHealth;
+        healthBar.value = currentHealth;
 
         bMove = true;
     }
@@ -102,10 +108,16 @@ public class Player : MonoBehaviour, IDamageable
         
     }
 
+    public void PlayFootStepSound()
+    {
+        AudioManager.Instance.PlaySFX("PlayerFootStepSound");
+    }
+
     public void ActiveAttackCollision()
     {
         attackCollision.SetActive(true);
         trailRenderer.enabled = true;
+        AudioManager.Instance.PlaySFX("PlayerAttackSound");
     }
 
     public void DeActiveAttackCollision()
@@ -114,10 +126,21 @@ public class Player : MonoBehaviour, IDamageable
         trailRenderer.enabled = false;
     }
 
+    //IEnumerator ChangeColor()
+    //{
+    //    mat.color = Color.red;
+
+    //    yield return new WaitForSeconds(0.15f);
+
+    //    mat.color = Color.white;
+    //}
+
     public void Damage(int Damage)
     {
         currentHealth -= Damage;
-        healthBar.fillAmount = currentHealth / 50;
+        healthBar.value = currentHealth;
+        AudioManager.Instance.PlaySFX("PlayerHitSound");
+      //  StartCoroutine(ChangeColor());
 
         if(currentHealth <= 0)
         {
