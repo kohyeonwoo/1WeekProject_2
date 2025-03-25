@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         currentHealth = maxHealth;
 
-        Invoke("ChaseStart", 2.0f);
+        Invoke("ChaseStart", 1.0f);
     }
 
     private void Update()
@@ -46,6 +46,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+
         Targeting();
         FreezeVelocity();
     }

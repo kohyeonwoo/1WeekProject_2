@@ -7,6 +7,7 @@ public class Player : MonoBehaviour, IDamageable
 {
 
     public GameObject attackCollision;
+    public GameObject playerUI;
     public Slider healthBar; 
 
     public int maxHealth;
@@ -151,6 +152,8 @@ public class Player : MonoBehaviour, IDamageable
     public void Dead()
     {
         Destroy(this.gameObject);
+        playerUI.SetActive(false);
+        GameManager.Instance.ActiveGameOverPanel();
     }
 
 }

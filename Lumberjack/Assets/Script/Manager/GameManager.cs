@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject pausePanel;
+    public GameObject gameOverPanel;
 
     public int killCount;
 
@@ -26,13 +28,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         killCount = 0;
-
-        int rand = Random.Range(0, portals.Count);
+        rand = Random.Range(0, portals.Count);
     }
 
     private void Update()
     {
-        if(killCount >= 8)
+        if (killCount >= 8)
         {
             portals[rand].SetActive(true);
         }
@@ -47,4 +48,25 @@ public class GameManager : MonoBehaviour
     {
         pausePanel.SetActive(false);
     }
+
+    public void ActiveGameOverPanel()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void DeActiveGameOverPanel()
+    {
+        gameOverPanel.SetActive(false);
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene("StartScene"); 
+    }
+
+    public void IntroLevel()
+    {
+        SceneManager.LoadScene("IntroScene");
+    }
+
 }
