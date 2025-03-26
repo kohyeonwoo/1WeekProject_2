@@ -25,10 +25,10 @@ public class EnemySpawnManager : MonoBehaviour
     {
         CreateOriginPool();
 
-        for(int i =0; i < amountToPool; i++)
-        {
-            SpawnOriginMode();
-        }
+        //for(int i =0; i < amountToPool; i++)
+        //{
+        //    SpawnOriginMode();
+        //}
  
     }
 

@@ -89,7 +89,7 @@ public class Enemy : MonoBehaviour, IDamageable
                 targetRange = 3.0f;
                 break;
             case EnemyType.Dash:
-                targetRadius = 1.0f;
+                targetRadius = 0.5f;
                 targetRange = 12.0f;
                 break;
             case EnemyType.LongDistance:
@@ -138,13 +138,12 @@ public class Enemy : MonoBehaviour, IDamageable
 
                 yield return new WaitForSeconds(0.1f);
                 rigid.AddForce(this.transform.forward * 20, ForceMode.Impulse);
-                enemyAttackCollision.SetActive(true);
-
+              
                 yield return new WaitForSeconds(0.5f);
                 rigid.velocity = Vector3.zero;
-                enemyAttackCollision.SetActive(false);
-
+              
                 yield return new WaitForSeconds(2.0f);
+
                 break;
 
             case EnemyType.LongDistance:

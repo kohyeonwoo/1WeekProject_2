@@ -3556,6 +3556,8 @@ MonoBehaviour:
   enemySpawnList:
   - {fileID: 1243205019214442740, guid: ce94563c99e74d943972c5880594ed60, type: 3}
   - {fileID: 4280205937596987352, guid: 63b6a2848440a1a4789b3de3d1f0299c, type: 3}
+  - {fileID: 319439125163942537, guid: 8b884cb164633f24284ac2b9aac443a7, type: 3}
+  - {fileID: 6716689232919636324, guid: 3d278f736c05f614cb7ddf3b2beda0c9, type: 3}
   spawnLocationList:
   - {fileID: 498458205}
   - {fileID: 1013668819}
@@ -6181,6 +6183,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 998027342}
+    - target: {fileID: 358857656596272401, guid: 1a104db8212d6a648921107d7113402f, type: 3}
+      propertyPath: particleEffect
+      value: 
+      objectReference: {fileID: 2944396702758532163, guid: e190bf97c041e58448af6b043116cba0, type: 3}
     - target: {fileID: 4579956412533295393, guid: 1a104db8212d6a648921107d7113402f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

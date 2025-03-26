@@ -8,7 +8,8 @@ public class Player : MonoBehaviour, IDamageable
 
     public GameObject attackCollision;
     public GameObject playerUI;
-    public Slider healthBar; 
+    public Slider healthBar;
+    public GameObject particleEffect;
 
     public int maxHealth;
     public int currentHealth;
@@ -153,7 +154,10 @@ public class Player : MonoBehaviour, IDamageable
         AudioManager.Instance.PlaySFX("PlayerHitSound");
         StartCoroutine(ChangeColor());
 
-        if(currentHealth <= 0)
+        GameObject obj = Instantiate(particleEffect, transform.position, Quaternion.identity);
+        Destroy(obj, 2.0f);
+
+        if (currentHealth <= 0)
         {
             Dead();
         }
