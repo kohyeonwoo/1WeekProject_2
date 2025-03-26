@@ -28,14 +28,14 @@ public class Player : MonoBehaviour, IDamageable
     private Animator anim;
     private Rigidbody rigid;
 
-   // public Material mat;
+    public Material mat;
 
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
-       // mat = GetComponentInChildren<SkinnedMeshRenderer>().material;
+        mat = GetComponentInChildren<SkinnedMeshRenderer>().material;
 
         maxHealth = 50;
         currentHealth = maxHealth;
@@ -106,7 +106,6 @@ public class Player : MonoBehaviour, IDamageable
     private void Attack1()
     {
         anim.SetTrigger("Attack1");
-        
     }
 
     public void PlayFootStepSound()
@@ -119,6 +118,7 @@ public class Player : MonoBehaviour, IDamageable
         attackCollision.SetActive(true);
         trailRenderer.enabled = true;
         AudioManager.Instance.PlaySFX("PlayerAttackSound");
+        bMove = false;
     }
 
     public void DeActiveAttackCollision()
@@ -127,21 +127,31 @@ public class Player : MonoBehaviour, IDamageable
         trailRenderer.enabled = false;
     }
 
-    //IEnumerator ChangeColor()
-    //{
-    //    mat.color = Color.red;
+    public void BMoveTrue()
+    {
+        bMove = true;
+    }
 
-    //    yield return new WaitForSeconds(0.15f);
+    public void BMoveFalse()
+    {
+        bMove = false;
+    }
 
-    //    mat.color = Color.white;
-    //}
+    IEnumerator ChangeColor()
+    {
+        mat.color = Color.red;
+
+        yield return new WaitForSeconds(1.0f);
+
+        mat.color = Color.white;
+    }
 
     public void Damage(int Damage)
     {
         currentHealth -= Damage;
         healthBar.value = currentHealth;
         AudioManager.Instance.PlaySFX("PlayerHitSound");
-      //  StartCoroutine(ChangeColor());
+        StartCoroutine(ChangeColor());
 
         if(currentHealth <= 0)
         {

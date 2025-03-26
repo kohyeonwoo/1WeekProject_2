@@ -97,6 +97,10 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1957365765618066293}
+    - target: {fileID: 4802912496461452022, guid: 9839a37846a4d4940956c88f7a5ae309, type: 3}
+      propertyPath: particleEffect
+      value: 
+      objectReference: {fileID: 1758473627833946668, guid: 9b21333b068a5084ba09535839bee3c8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

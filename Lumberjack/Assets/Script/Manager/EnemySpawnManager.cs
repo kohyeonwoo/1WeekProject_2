@@ -23,13 +23,15 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Start()
     {
-        CreateOriginPool(); 
+        CreateOriginPool();
+
+        for(int i =0; i < amountToPool; i++)
+        {
+            SpawnOriginMode();
+        }
+ 
     }
 
-    private void Update()
-    {
-        SpawnOriginMode();
-    }
 
     IEnumerator SpawnOrigin()
     {
@@ -47,7 +49,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         for (int i = 0; i < amountToPool; i++)
         {
-            GameObject obj = Instantiate(enemySpawnList[0]);
+            GameObject obj = Instantiate(enemySpawnList[1]);
             obj.SetActive(false);
             enemyPoolObject.Add(obj);
         }
@@ -74,7 +76,7 @@ public class EnemySpawnManager : MonoBehaviour
 
         GameObject objects = GetOriginPoolObject();
 
-        int i = Random.Range(0, 5);
+        int i = Random.Range(0, spawnLocationList.Count);
 
         if (objects != null)
         {

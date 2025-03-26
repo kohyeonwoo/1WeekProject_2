@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 
-public enum EnemyType { Basic, Dash, LongDistance}
+public enum EnemyType { Basic, Dash, LongDistance, Boss}
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public Transform target;
     public GameObject enemyAttackCollision;
+    public GameObject particleEffect;
     public GameObject bullet;
 
     private void Awake()
@@ -109,6 +110,16 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
+    public void ActiveEnemyAttackCollision()
+    {
+        enemyAttackCollision.SetActive(true);
+    }
+
+    public void DeActiveEnemyAttackCollision()
+    {
+        enemyAttackCollision.SetActive(false);
+    }
+
     private IEnumerator Attack()
     {
         bChase = false;
@@ -119,13 +130,7 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             case EnemyType.Basic:
 
-                yield return new WaitForSeconds(0.2f);
-                enemyAttackCollision.SetActive(true);
-
-                yield return new WaitForSeconds(1.0f);
-                enemyAttackCollision.SetActive(false);
-
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(2.0f);
 
                 break;
 
@@ -171,8 +176,10 @@ public class Enemy : MonoBehaviour, IDamageable
         currentHealth -= Damage;
         AudioManager.Instance.PlaySFX("EnemyHitSound");
         StartCoroutine(ChangeColor());
+        GameObject obj = Instantiate(particleEffect, transform.position, Quaternion.identity);
+        Destroy(obj, 2.0f);
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Dead();
         }

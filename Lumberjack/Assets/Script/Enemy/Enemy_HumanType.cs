@@ -20,6 +20,7 @@ public class Enemy_HumanType : MonoBehaviour, IDamageable
 
     public Transform target;
     public GameObject enemyAttackCollision;
+    public GameObject particleEffect;
     public GameObject bullet;
 
     public GameObject character;
@@ -102,15 +103,24 @@ public class Enemy_HumanType : MonoBehaviour, IDamageable
         bAttack = true;
         anim.SetBool("bAttack", true);
 
-        enemyAttackCollision.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        enemyAttackCollision.SetActive(false);
-
         yield return new WaitForSeconds(1.5f);
 
         bChase = true;
         bAttack = false;
         anim.SetBool("bAttack", false);
+
+        yield return new WaitForSeconds(1.5f);
+    }
+
+    public void ActiveEnemyAttackCollision()
+    {
+        enemyAttackCollision.SetActive(true);
+        AudioManager.Instance.PlaySFX("EnemyAttackSound_humanType");
+    }
+
+    public void DeActiveEnemyAttackCollision()
+    {
+        enemyAttackCollision.SetActive(false);
     }
 
     IEnumerator ChangeColor()
@@ -127,6 +137,9 @@ public class Enemy_HumanType : MonoBehaviour, IDamageable
         currentHealth -= Damage;
         AudioManager.Instance.PlaySFX("EnemyHitSound");
         StartCoroutine(ChangeColor());
+
+        GameObject obj = Instantiate(particleEffect, transform.position, Quaternion.identity);
+        Destroy(obj, 2.0f);
 
         if (currentHealth <= 0)
         {
