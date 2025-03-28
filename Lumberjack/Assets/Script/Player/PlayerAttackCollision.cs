@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MagicType { electric, ect1, ect2}
+public enum MagicType { electric, explosion , large }
 
 public class PlayerAttackCollision : MonoBehaviour
 {
@@ -21,6 +21,16 @@ public class PlayerAttackCollision : MonoBehaviour
                 if(magicType == MagicType.electric)
                 {
                     attackPoint = 5;
+                }
+
+                if (magicType == MagicType.explosion)
+                {
+                    attackPoint = 10;
+                }
+
+                if (magicType == MagicType.large)
+                {
+                    attackPoint = 15;
                 }
 
                 damageable.Damage(attackPoint);

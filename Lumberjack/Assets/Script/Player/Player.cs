@@ -7,6 +7,9 @@ public class Player : MonoBehaviour, IDamageable
 {
 
     public GameObject attackObject1;
+    public GameObject attackObject2;
+    public GameObject attackObject3;
+
     public GameObject playerUI;
     public Slider healthBar;
     
@@ -67,6 +70,11 @@ public class Player : MonoBehaviour, IDamageable
         {
             Attack2();
         }
+
+        if(Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            Attack3();
+        }    
 
         if (Input.GetButtonDown("Avoid"))
         {
@@ -131,6 +139,11 @@ public class Player : MonoBehaviour, IDamageable
         anim.SetTrigger("Attack2");
     }
 
+    private void Attack3()
+    {
+        anim.SetTrigger("Attack3");
+    }
+
     private void Avoid()
     {
         if(bAvoid && moveVector != Vector3.zero && !bAvoid)
@@ -163,6 +176,26 @@ public class Player : MonoBehaviour, IDamageable
     public void DeActiveAttackCollision1()
     {
         attackObject1.SetActive(false);
+    }
+
+    public void ActiveAttackCollision2()
+    {
+        attackObject2.SetActive(true);
+    }
+
+    public void DeActiveAttackCollision2()
+    {
+        attackObject2.SetActive(false);
+    }
+
+    public void ActiveAttackCollision3()
+    {
+        attackObject3.SetActive(true);
+    }
+
+    public void DeActiveAttackCollision3()
+    {
+        attackObject3.SetActive(false);
     }
 
     public void BMoveTrue()
