@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAttackCollision : MonoBehaviour
 {
    
-    public int attackPoint;
+    public int attackPoint; 
 
     private void OnTriggerEnter(Collider other)
     {

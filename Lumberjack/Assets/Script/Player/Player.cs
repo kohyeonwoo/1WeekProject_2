@@ -6,11 +6,10 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamageable
 {
 
-    public GameObject attackCollision;
+    public GameObject attackObject1;
     public GameObject playerUI;
     public Slider healthBar;
-    public GameObject particleEffect;
-
+    
     public int maxHealth;
     public int currentHealth;
 
@@ -22,21 +21,23 @@ public class Player : MonoBehaviour, IDamageable
     private float vAxis;
 
     private bool walkDown;
+    private bool bAvoid;
     public bool bMove;
 
     private Vector3 moveVector;
+    private Vector3 avoidVector;
 
     private Animator anim;
     private Rigidbody rigid;
 
-    public Material mat;
+    public SkinnedMeshRenderer[] meshes;
 
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
-        mat = GetComponentInChildren<SkinnedMeshRenderer>().material;
+        meshes = GetComponentsInChildren<SkinnedMeshRenderer>();
 
         maxHealth = 50;
         currentHealth = maxHealth;
@@ -54,13 +55,24 @@ public class Player : MonoBehaviour, IDamageable
         {
             InputKey();
             Move();
-            Turn();
+            Turn();     
         }
          
         if (Input.GetMouseButtonDown(0))
         {
             Attack1();
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Attack2();
+        }
+
+        if (Input.GetButtonDown("Avoid"))
+        {
+            Avoid();
+        }
+
     }
 
     private void FixedUpdate()
@@ -78,6 +90,11 @@ public class Player : MonoBehaviour, IDamageable
     private void Move()
     {
         moveVector = new Vector3(hAxis, 0, vAxis).normalized;
+
+        if(bAvoid)
+        {
+            moveVector = avoidVector;
+        }
 
         transform.position += moveVector * speed * (walkDown ? 0.3f : 1.0f) * Time.deltaTime;
 
@@ -109,23 +126,43 @@ public class Player : MonoBehaviour, IDamageable
         anim.SetTrigger("Attack1");
     }
 
+    private void Attack2()
+    {
+        anim.SetTrigger("Attack2");
+    }
+
+    private void Avoid()
+    {
+        if(bAvoid && moveVector != Vector3.zero && !bAvoid)
+        {
+            avoidVector = moveVector;
+            speed *= 2;
+            anim.SetTrigger("Avoid");
+            bAvoid = true;
+
+           Invoke("AvoidEnd", 0.4f);
+        }
+    }
+
+    private void AvoidEnd()
+    {
+        speed *= 0.5f;
+        bAvoid = false;
+    }
+
     public void PlayFootStepSound()
     {
         AudioManager.Instance.PlaySFX("PlayerFootStepSound");
     }
 
-    public void ActiveAttackCollision()
+    public void ActiveAttackCollision1()
     {
-        attackCollision.SetActive(true);
-        trailRenderer.enabled = true;
-        AudioManager.Instance.PlaySFX("PlayerAttackSound");
-        bMove = false;
+        attackObject1.SetActive(true);
     }
 
-    public void DeActiveAttackCollision()
+    public void DeActiveAttackCollision1()
     {
-        attackCollision.SetActive(false);
-        trailRenderer.enabled = false;
+        attackObject1.SetActive(false);
     }
 
     public void BMoveTrue()
@@ -140,11 +177,17 @@ public class Player : MonoBehaviour, IDamageable
 
     IEnumerator ChangeColor()
     {
-        mat.color = Color.red;
+        foreach (SkinnedMeshRenderer mesh in meshes)
+        {
+            mesh.material.color = Color.red;
+        }
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.3f);
 
-        mat.color = Color.white;
+        foreach (SkinnedMeshRenderer mesh in meshes)
+        {
+            mesh.material.color = Color.black;
+        }
     }
 
     public void Damage(int Damage)
@@ -153,9 +196,6 @@ public class Player : MonoBehaviour, IDamageable
         healthBar.value = currentHealth;
         AudioManager.Instance.PlaySFX("PlayerHitSound");
         StartCoroutine(ChangeColor());
-
-        GameObject obj = Instantiate(particleEffect, transform.position, Quaternion.identity);
-        Destroy(obj, 2.0f);
 
         if (currentHealth <= 0)
         {

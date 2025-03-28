@@ -10,11 +10,12 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public EnemyType enemyType;
 
-    private Rigidbody rigid;
-    private Animator anim;
-    private Material mat;
-    private NavMeshAgent nav;
-    
+    public Rigidbody rigid;
+    public Animator anim;
+    public SkinnedMeshRenderer[] meshes;
+    public NavMeshAgent nav;
+    public Collider bodyCollider;
+
     public int maxHealth;
     public int currentHealth;
     public int attackPoint;
@@ -32,12 +33,17 @@ public class Enemy : MonoBehaviour, IDamageable
         rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
-        //enemyAttackCollision = GetComponent<BoxCollider>();
-        mat = GetComponentInChildren<SkinnedMeshRenderer>().material;    
+        bodyCollider = GetComponent<Collider>();  
+        meshes = GetComponentsInChildren<SkinnedMeshRenderer>();
 
         currentHealth = maxHealth;
 
-        Invoke("ChaseStart", 1.0f);
+        if(enemyType != EnemyType.Boss)
+        {
+            Invoke("ChaseStart", 1.0f);
+        }
+
+        
     }
 
     private void Update()
@@ -61,7 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void ChaseTarget()
     {
-        if(nav.enabled)
+        if(nav.enabled && enemyType != EnemyType.Boss)
         {
             nav.SetDestination(target.position);
             nav.isStopped = !bChase;
@@ -82,32 +88,37 @@ public class Enemy : MonoBehaviour, IDamageable
         float targetRadius = 0.0f;
         float targetRange = 0.0f;
 
-        switch(enemyType)
+        if(enemyType != EnemyType.Boss)
         {
-            case EnemyType.Basic:
-                targetRadius = 1.5f;
-                targetRange = 3.0f;
-                break;
-            case EnemyType.Dash:
-                targetRadius = 0.5f;
-                targetRange = 12.0f;
-                break;
-            case EnemyType.LongDistance:
-                targetRadius = 0.5f;
-                targetRange = 25.0f;
-                break;
+            switch (enemyType)
+            {
+                case EnemyType.Basic:
+                    targetRadius = 1.5f;
+                    targetRange = 3.0f;
+                    break;
+                case EnemyType.Dash:
+                    targetRadius = 0.5f;
+                    targetRange = 12.0f;
+                    break;
+                case EnemyType.LongDistance:
+                    targetRadius = 0.5f;
+                    targetRange = 25.0f;
+                    break;
+            }
+
+            RaycastHit[] rayHits = Physics.SphereCastAll(transform.position,
+                targetRadius,
+                transform.forward,
+                targetRange,
+                LayerMask.GetMask("Player"));
+
+            if (rayHits.Length > 0 && !bAttack)
+            {
+                StartCoroutine(Attack());
+            }
         }
 
-        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position,
-            targetRadius,
-            transform.forward,
-            targetRange,
-            LayerMask.GetMask("Player"));
-
-        if(rayHits.Length > 0 && !bAttack)
-        {
-            StartCoroutine(Attack());
-        }
+       
     }
 
     public void ActiveEnemyAttackCollision()
@@ -163,22 +174,29 @@ public class Enemy : MonoBehaviour, IDamageable
 
     IEnumerator ChangeColor()
     {
-        mat.color = Color.red;
+
+        foreach(SkinnedMeshRenderer mesh in meshes)
+        {
+            mesh.material.color = Color.red;
+        }
 
         yield return new WaitForSeconds(0.3f);
 
-        mat.color = Color.white;
+        foreach (SkinnedMeshRenderer mesh in meshes)
+        {
+            mesh.material.color = Color.white;
+        }
     }
 
     public void Damage(int Damage)
     {
         currentHealth -= Damage;
-        AudioManager.Instance.PlaySFX("EnemyHitSound");
         StartCoroutine(ChangeColor());
+        AudioManager.Instance.PlaySFX("EnemyHitSound");
         GameObject obj = Instantiate(particleEffect, transform.position, Quaternion.identity);
         Destroy(obj, 2.0f);
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && enemyType != EnemyType.Boss)
         {
             Dead();
         }

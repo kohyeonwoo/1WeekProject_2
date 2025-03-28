@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MagicType { electric, ect1, ect2}
+
 public class PlayerAttackCollision : MonoBehaviour
 {
-     private int attackPoint;
+     public int attackPoint;
 
-    private void Start()
-    {
-        attackPoint = 10;
-    }
+     public MagicType magicType;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,9 +18,16 @@ public class PlayerAttackCollision : MonoBehaviour
 
             if (damageable != null)
             {
+                if(magicType == MagicType.electric)
+                {
+                    attackPoint = 5;
+                }
+
                 damageable.Damage(attackPoint);
                 Debug.Log("적이 맞았습니다");
             }
         }
     }
+
+    
 }
