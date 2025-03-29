@@ -192,7 +192,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         currentHealth -= Damage;
         StartCoroutine(ChangeColor());
-        AudioManager.Instance.PlaySFX("EnemyHitSound");
+        AudioManager.Instance.PlaySFX("PlayerHitSound");
         GameObject obj = Instantiate(particleEffect, transform.position, Quaternion.identity);
         Destroy(obj, 2.0f);
 
@@ -206,6 +206,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         bChase = false;
         nav.enabled = false;
+        GameManager.Instance.killCount++;
         anim.SetTrigger("Die");
         Invoke("EraseBody", 2.0f);
         //this.gameObject.SetActive(false);

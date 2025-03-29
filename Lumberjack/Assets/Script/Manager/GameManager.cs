@@ -8,12 +8,15 @@ public class GameManager : MonoBehaviour
     
     public static GameManager Instance;
 
+    public List<GameObject> wallList = new List<GameObject>();
+
     public GameObject pausePanel;
     public GameObject gameOverPanel;
 
     public int killCount;
 
     public int rand;
+    public int wallRandIndex;
 
     public List<GameObject> portals = new List<GameObject>();
 
@@ -23,12 +26,18 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        rand = Random.Range(0, portals.Count);
+        wallRandIndex = Random.Range(0, wallList.Count);
     }
 
     private void Start()
     {
+        AudioManager.Instance.PlayMusic("InGameBGM");
+
         killCount = 0;
-        rand = Random.Range(0, portals.Count);
+
+        wallList[wallRandIndex].SetActive(true);
     }
 
     private void Update()
@@ -52,6 +61,7 @@ public class GameManager : MonoBehaviour
     public void ActiveGameOverPanel()
     {
         gameOverPanel.SetActive(true);
+        AudioManager.Instance.PlaySFX("GameOverSoundEffect");
     }
 
     public void DeActiveGameOverPanel()

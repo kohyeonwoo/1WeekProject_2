@@ -9,6 +9,11 @@ public class Player : MonoBehaviour, IDamageable
     public GameObject attackObject1;
     public GameObject attackObject2;
     public GameObject attackObject3;
+    public GameObject attackObject4;
+
+    public GameObject attack3Effect;
+
+    public GameObject monsterSpawnObject;
 
     public GameObject playerUI;
     public Slider healthBar;
@@ -71,12 +76,32 @@ public class Player : MonoBehaviour, IDamageable
             Attack2();
         }
 
-        if(Input.GetKeyDown(KeyCode.Keypad2))
+        if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             Attack3();
-        }    
+        }
 
-        if (Input.GetButtonDown("Avoid"))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Attack4();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Attack5();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SpawnMagic();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            FinalAttack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Avoid();
         }
@@ -132,17 +157,52 @@ public class Player : MonoBehaviour, IDamageable
     private void Attack1()
     {
         anim.SetTrigger("Attack1");
+        AudioManager.Instance.PlaySFX("ElectricHit");
     }
 
     private void Attack2()
     {
         anim.SetTrigger("Attack2");
+        AudioManager.Instance.PlaySFX("");
     }
 
     private void Attack3()
     {
         anim.SetTrigger("Attack3");
+        AudioManager.Instance.PlaySFX("");
     }
+
+    private void Attack4()
+    {
+        anim.SetTrigger("Attack4");
+        AudioManager.Instance.PlaySFX("");
+    }
+
+    private void Attack5()
+    {
+        anim.SetTrigger("Attack5");
+        AudioManager.Instance.PlaySFX("");
+    }
+
+    private void SpawnMagic()
+    {
+        anim.SetTrigger("SpawnMagic");
+        AudioManager.Instance.PlaySFX("");
+        monsterSpawnObject.SetActive(true);
+
+        Invoke("DeActiveSpawnMagic", 5.0f);
+    }
+
+    private void FinalAttack()
+    {
+        anim.SetTrigger("FinalAttack");
+    }
+
+    private void DeActiveSpawnMagic()
+    {
+        monsterSpawnObject.SetActive(false);
+    }
+
 
     private void Avoid()
     {
@@ -171,6 +231,8 @@ public class Player : MonoBehaviour, IDamageable
     public void ActiveAttackCollision1()
     {
         attackObject1.SetActive(true);
+
+        Invoke("DeActiveAttackCollision1", 5.0f);
     }
 
     public void DeActiveAttackCollision1()
@@ -191,11 +253,35 @@ public class Player : MonoBehaviour, IDamageable
     public void ActiveAttackCollision3()
     {
         attackObject3.SetActive(true);
+        ActiveAttack3Particle();
+        AudioManager.Instance.PlaySFX("PlayerSwordSound");
     }
 
     public void DeActiveAttackCollision3()
     {
         attackObject3.SetActive(false);
+    }
+
+    public void ActiveAttackCollision4()
+    {
+        attackObject4.SetActive(true);
+        Invoke("DeActiveAttackCollision4", 3.5f);
+    }
+
+    public void DeActiveAttackCollision4()
+    {
+        attackObject4.SetActive(false);
+    }
+
+    public void ActiveAttack3Particle()
+    {
+        attack3Effect.SetActive(true);
+        Invoke("DeActiveAttack3Particle", 4.0f);
+    }
+
+    public void DeActiveAttack3Particle()
+    {
+        attack3Effect.SetActive(false);
     }
 
     public void BMoveTrue()

@@ -348,10 +348,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c654fa86619c0fd40871d9de6d161c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallList:
+  - {fileID: 1791198300}
+  - {fileID: 1013605296}
+  - {fileID: 732929585}
+  - {fileID: 1106842620}
   pausePanel: {fileID: 286772988}
   gameOverPanel: {fileID: 701134641}
   killCount: 0
   rand: 0
+  wallRandIndex: 0
   portals:
   - {fileID: 230090333}
   - {fileID: 348170320}
@@ -1258,67 +1264,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391033602}
   m_CullTransparentMesh: 1
---- !u!1001 &395427354
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1243205019214442740, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_Name
-      value: Enemy2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1243205019214442740, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.3807583
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.00000047683716
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.9838667
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016831765911042289, guid: ce94563c99e74d943972c5880594ed60, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ce94563c99e74d943972c5880594ed60, type: 3}
 --- !u!1 &420992653
 GameObject:
   m_ObjectHideFlags: 0
@@ -2661,7 +2606,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.743
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3621,6 +3566,7 @@ MonoBehaviour:
   - {fileID: 1857688716}
   waveCount: 3
   amountToPool: 15
+  randIndex: 0
 --- !u!1 &998027340
 GameObject:
   m_ObjectHideFlags: 0
@@ -3959,46 +3905,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1231720446669283653, guid: 0a849803d81023745a9d097feb4f68e9, type: 3}
   m_PrefabInstance: {fileID: 1615859129}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1357006319 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7512739703152776307, guid: a7998be70d3add047a09396eb07d85eb, type: 3}
-  m_PrefabInstance: {fileID: 3488210119046355236}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1357006321
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357006319}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 8.78, y: 1, z: 8.44}
-  m_Center: {x: 0, y: 0.51, z: 0}
---- !u!114 &1357006322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357006319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c7e3225e82190a41ad8eeb9944b45f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPoint: 9
-  magicType: 0
 --- !u!1 &1361154233
 GameObject:
   m_ObjectHideFlags: 0
@@ -4526,7 +4432,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.737
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5355,7 +5261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1791198301
 Transform:
   m_ObjectHideFlags: 0
@@ -5841,7 +5747,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4a6522bd696de4391acfa5c1d78eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSounds: []
+  musicSounds:
+  - name: InGameBGM
+    clip: {fileID: 8300000, guid: bcbd171679c40e943aa88a9f7f79d95b, type: 3}
   sfxSounds:
   - name: PlayerFootStepSound
     clip: {fileID: 8300000, guid: bea4e8f7a24e7b240a81aa5f2d41347c, type: 3}
@@ -5855,6 +5763,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d0b9abaf878973c4ab6a730c38f64aca, type: 3}
   - name: ElectricHit
     clip: {fileID: 8300000, guid: b71f5d5bba9253d4ea1d2c8aec5dcaec, type: 3}
+  - name: GameOverSoundEffect
+    clip: {fileID: 8300000, guid: a968b65672bcfe74687db9b28a2488a2, type: 3}
+  - name: PlayerSwordSound
+    clip: {fileID: 8300000, guid: 48d07aecd489b314abb5f81de7285771, type: 3}
   musicSource: {fileID: 737180095}
   sfxSource: {fileID: 1543238296}
 --- !u!1 &2005153663
@@ -6287,27 +6199,17 @@ PrefabInstance:
       value: Player_Magician
       objectReference: {fileID: 0}
     - target: {fileID: 5752434410412218408, guid: a7998be70d3add047a09396eb07d85eb, type: 3}
+      propertyPath: playerUI
+      value: 
+      objectReference: {fileID: 602874196}
+    - target: {fileID: 5752434410412218408, guid: a7998be70d3add047a09396eb07d85eb, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 998027342}
-    - target: {fileID: 5752434410412218408, guid: a7998be70d3add047a09396eb07d85eb, type: 3}
-      propertyPath: attackObject3
-      value: 
-      objectReference: {fileID: 1357006319}
-    - target: {fileID: 7512739703152776307, guid: a7998be70d3add047a09396eb07d85eb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7512739703152776307, guid: a7998be70d3add047a09396eb07d85eb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1357006321}
-    - targetCorrespondingSourceObject: {fileID: 7512739703152776307, guid: a7998be70d3add047a09396eb07d85eb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1357006322}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7998be70d3add047a09396eb07d85eb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -6316,10 +6218,9 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 123837175}
-  - {fileID: 1986307842}
   - {fileID: 972012261}
+  - {fileID: 1986307842}
   - {fileID: 1709798691}
   - {fileID: 1421109127}
   - {fileID: 1827072899}
   - {fileID: 3488210119046355236}
-  - {fileID: 395427354}

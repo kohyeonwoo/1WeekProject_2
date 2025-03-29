@@ -18,17 +18,23 @@ public class EnemySpawnManager : MonoBehaviour
     public int waveCount = 1;
 
     //오브젝트 풀에서 생성될 제한 수 변수
-    public int amountToPool = 23;
+    public int amountToPool = 7;
 
+    public int randIndex;
+
+    private void Awake()
+    {
+        randIndex = Random.Range(0, enemySpawnList.Count);
+    }
 
     private void Start()
     {
         CreateOriginPool();
 
-        //for(int i =0; i < amountToPool; i++)
-        //{
-        //    SpawnOriginMode();
-        //}
+        for(int i =0; i < amountToPool; i++)
+        {
+            SpawnOriginMode();
+        }
  
     }
 
@@ -49,7 +55,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         for (int i = 0; i < amountToPool; i++)
         {
-            GameObject obj = Instantiate(enemySpawnList[1]);
+            GameObject obj = Instantiate(enemySpawnList[randIndex]);
             obj.SetActive(false);
             enemyPoolObject.Add(obj);
         }

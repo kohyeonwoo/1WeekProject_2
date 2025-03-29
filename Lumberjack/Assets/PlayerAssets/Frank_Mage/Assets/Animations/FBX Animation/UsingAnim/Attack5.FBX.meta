@@ -830,21 +830,21 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.36796534
+      - time: 0.43521678
         functionName: ActiveAttackCollision3
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.85569984
+      - time: 0.56330216
         functionName: DeActiveAttackCollision3
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8917749
+      - time: 0.87423104
         functionName: BMoveTrue
         data: 
         objectReferenceParameter: {instanceID: 0}
